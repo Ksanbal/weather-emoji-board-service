@@ -9,7 +9,7 @@ import { Column, Entity } from 'typeorm';
 @Entity({
   name: 'board',
 })
-export class BoardEntity extends CommonEntity {
+export class PostsEntity extends CommonEntity {
   @ApiProperty({
     example: '제목입니다.',
     required: true,

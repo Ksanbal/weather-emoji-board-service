@@ -1,12 +1,12 @@
 import { PickType } from '@nestjs/swagger';
 import { IsByteLength, IsNotEmpty, IsString, Matches } from 'class-validator';
-import { BoardEntity } from '../entities/board.entity';
+import { PostsEntity } from '../entities/posts.entity';
 
 /**
  * @code writer 김현균
  * @description 게시판 create용 dto
  */
-export class CreateBoardDto extends PickType(BoardEntity, [
+export class CreatePostsDto extends PickType(PostsEntity, [
   'title',
   'body',
   'password',
