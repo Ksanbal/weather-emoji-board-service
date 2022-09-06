@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { typeOrmAsyncModuleOptions } from './config/typeorm.config';
+import { BoardModule } from './api/board/board.module';
 import * as Joi from 'joi';
 
 @Module({
@@ -18,6 +19,7 @@ import * as Joi from 'joi';
       }),
     }),
     TypeOrmModule.forRootAsync(typeOrmAsyncModuleOptions),
+    BoardModule,
   ],
   controllers: [AppController],
   providers: [AppService],
