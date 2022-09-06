@@ -33,4 +33,19 @@ export class BoardService {
 
     return new BoardDto(newBoard);
   }
+
+  /**
+   * @code writer 김현균
+   * @description 게시판 글 리스트
+   *
+   * @param
+   *
+   * @returns Array<BoardDto>
+   */
+  async readAll() {
+    const boards = await this.boardRepository.find({
+      order: { createAt: 'DESC' },
+    });
+    return boards.map((board) => new BoardDto(board));
+  }
 }
