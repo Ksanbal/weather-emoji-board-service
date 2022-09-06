@@ -7,7 +7,7 @@ import { Column, Entity } from 'typeorm';
  * @description Example 모델 정의
  */
 @Entity({
-  name: 'board',
+  name: 'posts',
 })
 export class PostsEntity extends CommonEntity {
   @ApiProperty({
