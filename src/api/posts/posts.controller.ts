@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -10,6 +11,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { CreatePostsDto } from './dtos/createPosts.dto';
+import { DeletePostsDto } from './dtos/deletePosts.dto';
 import { EditPostsDto } from './dtos/editPosts.dto';
 import { PostsService } from './posts.service';
 
@@ -57,5 +59,21 @@ export class PostsController {
     @Body() editPostsDto: EditPostsDto,
   ) {
     return await this.postsService.edit(id, editPostsDto);
+  }
+
+  /**
+   * @code writer 김현균
+   * @description 게시판 글 수정
+   *
+   * @DELETE ("/api/posts/1")
+   *
+   * @returns 200
+   */
+  @Delete(':id')
+  async delete(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() deletePostsDto: DeletePostsDto,
+  ) {
+    return await this.postsService.delete(id, deletePostsDto);
   }
 }

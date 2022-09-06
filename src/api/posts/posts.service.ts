@@ -6,6 +6,7 @@ import { PostsEntity } from './entities/posts.entity';
 import * as bcrypt from 'bcrypt';
 import { PostsDto } from './dtos/posts.dto';
 import { EditPostsDto } from './dtos/editPosts.dto';
+import { DeletePostsDto } from './dtos/deletePosts.dto';
 
 @Injectable()
 export class PostsService {
@@ -83,6 +84,39 @@ export class PostsService {
     if (!test.affected)
       throw new HttpException(
         '게시물을 수정할 수 없습니다.',
+        HttpStatus.CONFLICT,
+      );
+  }
+
+  /**
+   * @code writer 김현균
+   * @description 게시판 글 삭제
+   *
+   * @param id number
+   * @param deletePostsDto DeletePostsDto
+   *
+   * @returns null
+   */
+  async delete(id: number, deletePostsDto: DeletePostsDto) {
+    // [x] 게시물 404 예외처리
+    const post = await this.postsRepository.findOne({ where: { id } });
+    if (!post)
+      throw new HttpException(
+        '게시물을 찾을 수 없습니다.',
+        HttpStatus.NOT_FOUND,
+      );
+
+    // [x] 비밀번호 검증
+    const { password } = deletePostsDto;
+    const isValid = await bcrypt.compare(password, post.password);
+    if (!isValid)
+      throw new HttpException('비밀번호를 확인해주세요.', HttpStatus.FORBIDDEN);
+
+    // [x] 게시물 삭제
+    const result = await this.postsRepository.softDelete(id);
+    if (!result.affected)
+      throw new HttpException(
+        '게시물을 삭제할 수 없습니다.',
         HttpStatus.CONFLICT,
       );
   }
