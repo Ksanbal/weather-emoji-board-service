@@ -1,5 +1,5 @@
 import { PickType } from '@nestjs/swagger';
-import { IsByteLength, IsNotEmpty, IsString, Matches } from 'class-validator';
+import { IsNotEmpty, IsString, Length, Matches } from 'class-validator';
 import { PostsEntity } from '../entities/posts.entity';
 
 /**
@@ -13,12 +13,12 @@ export class CreatePostsDto extends PickType(PostsEntity, [
 ]) {
   @IsString({ message: 'title 은/는 문자열이여합니다.' })
   @IsNotEmpty({ message: 'title 은/는 필수항목입니다.' })
-  @IsByteLength(1, 20, { message: 'title 은/는 20까지만 사용가능합니다.' })
+  @Length(1, 20, { message: 'title 은/는 20까지만 사용가능합니다.' })
   title;
 
   @IsString({ message: 'body 은/는 문자열이여합니다.' })
   @IsNotEmpty({ message: 'body 은/는 필수항목입니다.' })
-  @IsByteLength(1, 200, {
+  @Length(1, 200, {
     message: 'titbodyle 은/는 200까지만 사용가능합니다.',
   })
   body;
