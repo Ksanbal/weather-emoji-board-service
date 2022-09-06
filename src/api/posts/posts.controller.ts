@@ -1,5 +1,16 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { CreatePostsDto } from './dtos/createPosts.dto';
+import { EditPostsDto } from './dtos/editPosts.dto';
 import { PostsService } from './posts.service';
 
 @Controller('api/posts')
@@ -30,5 +41,21 @@ export class PostsController {
   @Get()
   async readAll() {
     return await this.postsService.readAll();
+  }
+
+  /**
+   * @code writer 김현균
+   * @description 게시판 글 수정
+   *
+   * @PATCH ("/posts")
+   *
+   * @returns 200
+   */
+  @Patch(':id')
+  async edit(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() editPostsDto: EditPostsDto,
+  ) {
+    return await this.postsService.edit(id, editPostsDto);
   }
 }
