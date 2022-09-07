@@ -9,6 +9,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { CreatePostsDto } from './dtos/createPosts.dto';
 import { DeletePostsDto } from './dtos/deletePosts.dto';
@@ -41,8 +42,11 @@ export class PostsController {
    * @returns 200 - Array<PostsDto>
    */
   @Get()
-  async readAll() {
-    return await this.postsService.readAll();
+  async readAll(
+    @Query('page') page: number,
+    @Query('page-count') pageCount: number,
+  ) {
+    return await this.postsService.readAll(page, pageCount);
   }
 
   /**

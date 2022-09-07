@@ -40,12 +40,15 @@ export class PostsService {
    * @code writer 김현균
    * @description 게시판 글 리스트
    *
-   * @param
+   * @param page 페이지
+   * @param pageCount 페이지당 개수
    *
    * @returns Array<PostsDto>
    */
-  async readAll() {
+  async readAll(page = 1, pageCount = 20) {
     const posts = await this.postsRepository.find({
+      take: pageCount,
+      skip: pageCount * (page - 1),
       order: { createAt: 'DESC' },
     });
     return posts.map((post) => new PostsDto(post));
