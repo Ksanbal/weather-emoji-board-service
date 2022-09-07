@@ -1,0 +1,316 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "AppController_getHello",
+        "parameters": [],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/posts": {
+      "post": {
+        "operationId": "PostsController_create",
+        "summary": "게시판 글 작성",
+        "description": "비밀번호를 포함한 글을 게시합니다.<br> - 위치로 날씨를 정보를 포함할 수 있습니다. (기본값은 서울입니다.)<br> - 이모지를 사용할 수 있습니다.",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreatePostsDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ResponseOne" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ExceptionList" }
+              }
+            }
+          }
+        },
+        "tags": ["게시판"]
+      },
+      "get": {
+        "operationId": "PostsController_readAll",
+        "summary": "게시판 글 리스트",
+        "description": "게시판의 글을 최신순으로 불러옵니다.<br> - page, page-count로 Pagination을 사용할 수 있습니다.",
+        "parameters": [
+          {
+            "name": "page-count",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ResponseList" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ExceptionList" }
+              }
+            }
+          }
+        },
+        "tags": ["게시판"]
+      }
+    },
+    "/api/posts/{id}": {
+      "patch": {
+        "operationId": "PostsController_edit",
+        "summary": "게시판 글 편집",
+        "description": "게시판의 글을 편집합니다.<br> - password가 일치해야하며 제목, 본문을 수정 할 수 있습니다.",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/EditPostsDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ResponseOne" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ExceptionList" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ExceptionOne" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ExceptionOne" }
+              }
+            }
+          }
+        },
+        "tags": ["게시판"]
+      },
+      "delete": {
+        "operationId": "PostsController_delete",
+        "summary": "게시판 글 삭제",
+        "description": "게시판의 글을 삭제합니다.<br> - password가 일치해야합니다.",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/DeletePostsDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ResponseOne" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ExceptionList" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ExceptionOne" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ExceptionOne" }
+              }
+            }
+          }
+        },
+        "tags": ["게시판"]
+      }
+    }
+  },
+  "info": {
+    "title": "NestJS Typeorm Template Swagger",
+    "description": "Writed by Ksanbal",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "CreatePostsDto": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string", "example": "✏️ 제목입니다." },
+          "body": { "type": "string", "example": "📚 본문입니다." },
+          "password": {
+            "type": "string",
+            "example": "abcde1",
+            "description": "6자 이상(숫자 1개이상 포함)"
+          },
+          "coordinate": {
+            "type": "string",
+            "example": "37.5666805,126.9784147",
+            "description": "사용자의 위도,경도 값입니다."
+          }
+        },
+        "required": ["title", "body", "password"]
+      },
+      "PostsDto": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number", "example": 1, "description": "id" },
+          "createAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-07-13T04:22:24.489Z",
+            "description": "생성일"
+          },
+          "title": { "type": "string", "example": "✏️ 제목입니다." },
+          "body": { "type": "string", "example": "📚 본문입니다." },
+          "weather": {
+            "type": "string",
+            "example": "맑음",
+            "description": "날씨 정보"
+          }
+        },
+        "required": ["title", "body"]
+      },
+      "ResponseOne": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "timestamp": { "format": "date-time", "type": "string" },
+          "message": { "type": "string" },
+          "data": { "type": "object" }
+        },
+        "required": ["success", "timestamp", "message", "data"]
+      },
+      "ExceptionList": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": false },
+          "timestamp": { "format": "date-time", "type": "string" },
+          "message": { "type": "string" },
+          "data": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": ["success", "timestamp", "message", "data"]
+      },
+      "ResponseList": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "timestamp": { "format": "date-time", "type": "string" },
+          "message": { "type": "string" },
+          "data": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/PostsDto" }
+          }
+        },
+        "required": ["success", "timestamp", "message", "data"]
+      },
+      "EditPostsDto": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string", "example": "✏️ 제목입니다." },
+          "body": { "type": "string", "example": "📚 본문입니다." },
+          "password": {
+            "type": "string",
+            "example": "abcde1",
+            "description": "6자 이상(숫자 1개이상 포함)"
+          }
+        },
+        "required": ["title", "body", "password"]
+      },
+      "ExceptionOne": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": false },
+          "timestamp": { "format": "date-time", "type": "string" },
+          "message": { "type": "string" },
+          "data": { "type": "object", "properties": {} }
+        },
+        "required": ["success", "timestamp", "message", "data"]
+      },
+      "DeletePostsDto": {
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string",
+            "example": "abcde1",
+            "description": "6자 이상(숫자 1개이상 포함)"
+          }
+        },
+        "required": ["password"]
+      }
+    }
+  }
+}
