@@ -7,12 +7,14 @@ import * as bcrypt from 'bcrypt';
 import { PostsDto } from './dtos/posts.dto';
 import { EditPostsDto } from './dtos/editPosts.dto';
 import { DeletePostsDto } from './dtos/deletePosts.dto';
+import { WeatherRepository } from '../../external_api/weather/weather.repository';
 
 @Injectable()
 export class PostsService {
   constructor(
     @InjectRepository(PostsEntity)
     private readonly postsRepository: Repository<PostsEntity>,
+    private readonly weatherRepository: WeatherRepository,
   ) {}
 
   /**
@@ -28,9 +30,14 @@ export class PostsService {
     const { password } = createPostsDto;
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // [x] 날씨 정보 get
+    const { coordinate } = createPostsDto;
+    const weatherMessage = await this.weatherRepository.getWeather(coordinate);
+
     // [x] 게시물 생성 및 반환
     const newPost = this.postsRepository.create(createPostsDto);
     newPost.password = hashedPassword;
+    newPost.weather = weatherMessage;
     await newPost.save();
 
     return new PostsDto(newPost);

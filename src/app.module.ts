@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { typeOrmAsyncModuleOptions } from './config/typeorm.config';
 import { PostsModule } from './api/posts/posts.module';
+import { WeatherModule } from './external_api/weather/weather.module';
 import * as Joi from 'joi';
 
 @Module({
@@ -16,10 +17,12 @@ import * as Joi from 'joi';
       validationSchema: Joi.object({
         MODE: Joi.string().valid('dev', 'prod').required(),
         PORT: Joi.number().default(3000),
+        WEATHER_API_KEY: Joi.string().required(),
       }),
     }),
     TypeOrmModule.forRootAsync(typeOrmAsyncModuleOptions),
     PostsModule,
+    WeatherModule,
   ],
   controllers: [AppController],
   providers: [AppService],

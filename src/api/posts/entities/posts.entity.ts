@@ -48,4 +48,17 @@ export class PostsEntity extends CommonEntity {
     comment: '비밀번호',
   })
   password: string;
+
+  @ApiProperty({
+    example: '맑음',
+    description: '날씨 정보',
+    required: false,
+  })
+  @Column({
+    type: 'varchar',
+    length: 50,
+    nullable: true,
+    comment: '맑음',
+  })
+  weather: string;
 }
