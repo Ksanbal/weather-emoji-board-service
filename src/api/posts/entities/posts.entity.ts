@@ -12,7 +12,7 @@ import { IsNotEmpty, IsString, Length, Matches } from 'class-validator';
 })
 export class PostsEntity extends CommonEntity {
   @ApiProperty({
-    example: '제목입니다.',
+    example: '✏️ 제목입니다.',
     required: true,
   })
   @Column({
@@ -27,7 +27,7 @@ export class PostsEntity extends CommonEntity {
   title: string;
 
   @ApiProperty({
-    example: '본문입니다.',
+    example: '📚 본문입니다.',
     required: true,
   })
   @Column({
