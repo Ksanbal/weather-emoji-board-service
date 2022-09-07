@@ -11,7 +11,6 @@ Weather API를 이용한 Emoji 사용 가능한 게시판 API입니다.
 - [프로젝트 실행](#🚀-프로젝트-실행)
 - [문서](#📚-문서)
 
----
 
 ## 👨‍🔧 Skills
 
@@ -35,7 +34,6 @@ Weather API를 이용한 Emoji 사용 가능한 게시판 API입니다.
 
 <img src="https://img.shields.io/badge/Swagger-6.1.0-green?logo=swagger">
 
----
 
 ## 📑 서비스 개요
 
@@ -43,7 +41,6 @@ Weather API를 이용한 Emoji 사용 가능한 게시판 API입니다.
 - 비밀번호를 이용해 게시판에 글을 작성할 수 있습니다.
 - 비밀번호 검증을 통해 작성한 글을 편집, 삭제 할 수 있습니다.
 
----
 
 ## 🛠 구현 사항
 
@@ -68,7 +65,6 @@ Weather API를 이용한 Emoji 사용 가능한 게시판 API입니다.
 
 - 게시글 비밀번호 검증을 통한 게시글 삭제(Soft Delete) 기능
 
----
 
 ## 🚧 테이블 구조
 
@@ -85,7 +81,6 @@ Weather API를 이용한 Emoji 사용 가능한 게시판 API입니다.
 | update_at   | 수정일        | datetime     |               | NO          | on update CURRENT_TIMESTAMP(6) |
 | delete_at   | 삭제일        | datetime     |               | YES         |                                |
 
----
 
 ## 🚀 프로젝트 실행
 
@@ -115,7 +110,6 @@ $ npm install
 $ npm run start:dev
 ```
 
----
 
 ## 📚 문서
 
