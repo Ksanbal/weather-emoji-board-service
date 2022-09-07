@@ -16,11 +16,13 @@ Weather API를 이용한 Emoji 사용 가능한 게시판 API입니다.
 
 ### API
 
-<img src="https://img.shields.io/badge/node-16.17.0-339933?logo=node.js"> 
-<img src="https://img.shields.io/badge/TypeScript-4.4.5-3178C6?logo=typescript"> 
-<img src="https://img.shields.io/badge/NestJS-9.0.0-E0234E?logo=NestJS">
-<img src="https://img.shields.io/badge/bcrypt-5.0.1-green">
-<img src="https://img.shields.io/badge/@nestjs/axios-0.1.0-E0234E">
+<div>
+  <img src="https://img.shields.io/badge/node-16.17.0-339933?logo=node.js"> 
+  <img src="https://img.shields.io/badge/TypeScript-4.4.5-3178C6?logo=typescript"> 
+  <img src="https://img.shields.io/badge/NestJS-9.0.0-E0234E?logo=NestJS">
+  <img src="https://img.shields.io/badge/bcrypt-5.0.1-green">
+  <img src="https://img.shields.io/badge/@nestjs/axios-0.1.0-E0234E">
+</div>
 
 ### ORM
 
